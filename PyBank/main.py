@@ -2,8 +2,22 @@
 import os
 import csv
 
-#csvpath = "/Users/junebug/Documents/GitHub/python-challenge/PyBank/Resources/budget_data.csv"
-csvpath = os.path.join('PyBank','Resources', 'budget_data.csv')
+# Information about platform.system() to identify OS running on to adjust filepath courtesy of Stack Overflow:
+# https://stackoverflow.com/questions/1854/how-to-identify-which-os-python-is-running-on
+import platform
+SysPath = ""
+if platform.system() == "Darwin":
+    #"Darwin" for the MacOS kernel
+    #"Windows" for the Windows kernel
+    #"Linus" for the Linux kernel
+    SysPath = "."
+else:
+    ".."
+# This was such a pain in the patootie to get my system to run until I realized that the example code for os.path-containing activities would not work without modification.
+# This bit was included to minimize disruption for the non-MacOS users (everyone but me, I guess)
+# I lovehate computers.
+
+csvpath = os.path.join(SysPath, 'PyBank','Resources', 'budget_data.csv')
 MonthData = []
 ProfitsData = []
 ChangeData = []
