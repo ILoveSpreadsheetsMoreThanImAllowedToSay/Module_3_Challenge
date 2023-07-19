@@ -2,8 +2,8 @@
 import os
 import csv
 
-csvpath = "/Users/junebug/Documents/GitHub/python-challenge/PyBank/Resources/budget_data.csv"
-#os.path.join('PyBank','Resources', 'budget_data.csv')
+#csvpath = "/Users/junebug/Documents/GitHub/python-challenge/PyBank/Resources/budget_data.csv"
+csvpath = os.path.join('PyBank','Resources', 'budget_data.csv')
 MonthData = []
 ProfitsData = []
 ChangeData = []
