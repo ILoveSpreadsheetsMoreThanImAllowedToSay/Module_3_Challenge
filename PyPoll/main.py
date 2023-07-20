@@ -1,4 +1,15 @@
+import os
 import csv
+
+import platform
+SysPath = ""
+if platform.system() == "Darwin":
+    #"Darwin" for the MacOS kernel
+    #"Windows" for the Windows kernel
+    #"Linus" for the Linux kernel
+    SysPath = "."
+else:
+    ".."
 
 # I asked ChatGPT to assist with the syntax of importing data from a raw github link and got the below
 # To demonstrate that I learned rather than simply copy/paste/replaced I will explain my understanding of each of the lines
@@ -19,9 +30,10 @@ csv_reader = csv.reader(csv_data)
 csv_header = next(csv_reader)
 
 Row_Count = 0
+
+# I was determined to learn how to use dictionaries this time around rather than do some ballistic stuff with multiple list objects
 Candidate_Dict = {}
 
-# If a Dictionary key-value pair does not exist the following will assign one such value.  Dictionary keys are unique
 for row in csv_reader:
     if row[2] in Candidate_Dict:
         Candidate_Dict[row[2]] = Candidate_Dict[row[2]] + 1
@@ -29,15 +41,24 @@ for row in csv_reader:
         Candidate_Dict[row[2]] = 1 
     Row_Count = Row_Count + 1
     
-print("\n")
-print("Election Results")
-print("-------------------------")
-print(f"Total Votes: {Row_Count}")
-print("-------------------------")
+# Similar approach to output as a single string to the file
+election_results = (
+"Election Results" + "\n" +
+"-------------------------" + "\n" +
+"Total Votes: " + str(Row_Count) + "\n" +
+"-------------------------" + "\n")
+
 for Candidate, Votes in Candidate_Dict.items():
-  print(f"{Candidate}: {(Votes / Row_Count):.3%} ({Votes})")
+  proportion = Votes / Row_Count
+  election_results += Candidate + ": " + "{:.3%}".format(proportion) + " (" + str(Votes) + ")" + "\n"
+
 Winning_Candidate = max(Candidate_Dict, key=Candidate_Dict.get)
-print("-------------------------")
-print(f"Winner: {Winning_Candidate}")
-print("-------------------------")
-print("\n")
+election_results += (
+"-------------------------" + "\n" +
+"Winner: " + str(Winning_Candidate) + "\n" +
+"-------------------------")
+#output_file_path = output_file_path = os.path.join(script_directory, 'output.txt')script_directory, 'output.txt')
+with open(os.path.join(SysPath,'PyPoll','Analysis','election_results.txt'),'w') as output_file:
+    output_file.write(election_results)
+
+print(election_results)

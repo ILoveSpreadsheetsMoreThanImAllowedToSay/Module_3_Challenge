@@ -33,16 +33,22 @@ with open(csvpath) as csvfile:
     
 for i in range(1,len(ProfitsData)):
     ChangeData[i-1] = ProfitsData[i] - ProfitsData[i-1]
-          
+# +1 added at the end of each of these as the ChangeData list will cetagorically have a reduced index value compared to the comparison lists - Index 0 will not have a valid point to subtract against.
 MaxChangeIndex = ChangeData.index(max(ChangeData))+1
 MinChangeIndex = ChangeData.index(min(ChangeData))+1
 
-print("\n")
-print("Financial Analysis")
-print("----------------------------")
-print(f"Total Months: {len(MonthData)}")
-print(f"Total: ${sum(ProfitsData)}")
-print(f"Average Change: ${round(sum(ChangeData) / (len(ChangeData)-1),2)}")
-print(f"Greatest Increase in Profits: {MonthData[MaxChangeIndex]} (${max(ChangeData)})")
-print(f"Greatest Decrease in Profits: {MonthData[MinChangeIndex]} (${min(ChangeData)})")
-print("\n")
+# I found that it would make more sense to me to make a single string to be used as the output
+financial_analysis = (
+"Financial Analysis" + "\n" +
+"----------------------------" + "\n" +
+"Total Months: " + str(len(MonthData)) + "\n" +
+"Total: $" + str(sum(ProfitsData)) + "\n" +
+"Average Change: $" + str(round(sum(ChangeData) / (len(ChangeData)-1),2)) + "\n" +
+"Greatest Increase in Profits: " + str(MonthData[MaxChangeIndex]) + " ($" + str(max(ChangeData)) + ")" + "\n" +
+"Greatest Decrease in Profits: " + str(MonthData[MinChangeIndex]) + " ($" + str(min(ChangeData)) + ")" + "\n"
+)
+
+with open(os.path.join(SysPath,'PyBank','Analysis','financial_analysis.txt'),'w') as output_file:
+    output_file.write(financial_analysis)
+
+print(financial_analysis)
