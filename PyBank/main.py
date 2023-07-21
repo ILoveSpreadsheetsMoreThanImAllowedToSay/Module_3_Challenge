@@ -18,6 +18,8 @@ else:
 # I lovehate computers.
 
 csvpath = os.path.join(SysPath, 'PyBank', 'Resources', 'budget_data.csv')
+
+# Declare lists for use in calculations
 MonthData = []
 ProfitsData = []
 ChangeData = []
@@ -26,6 +28,7 @@ with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     csv_header = next(csvreader)
 
+# Fill lists to operate on
     for row in csvreader:
         MonthData.append(row[0])
         ProfitsData.append(int(row[1]))
@@ -34,10 +37,12 @@ with open(csvpath) as csvfile:
 for i in range(1,len(ProfitsData)):
     ChangeData[i-1] = ProfitsData[i] - ProfitsData[i-1]
 # +1 added at the end of each of these as the ChangeData list will cetagorically have a reduced index value compared to the comparison lists - Index 0 will not have a valid point to subtract against.
+
+#Find the maximum and minimum values in the ChangeDta list and return their relative indices to pull out data from the MonthData list
 MaxChangeIndex = ChangeData.index(max(ChangeData))+1
 MinChangeIndex = ChangeData.index(min(ChangeData))+1
 
-# I found that it would make more sense to me to make a single string to be used as the output
+# I found that it would make more sense to me to make a single string to be used as the output.  I like it.
 financial_analysis = (
 "Financial Analysis" + "\n" +
 "----------------------------" + "\n" +
@@ -48,6 +53,7 @@ financial_analysis = (
 "Greatest Decrease in Profits: " + str(MonthData[MinChangeIndex]) + " ($" + str(min(ChangeData)) + ")" + "\n"
 )
 
+# Write file to local directory, pretty straightforward
 with open(os.path.join(SysPath,'PyBank','Analysis','financial_analysis.txt'),'w') as output_file:
     output_file.write(financial_analysis)
 

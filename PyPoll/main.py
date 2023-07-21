@@ -12,6 +12,7 @@ else:
     ".."
 
 # I asked ChatGPT to assist with the syntax of importing data from a raw github link and got the below
+# I did this because I started working on another computer that was not my personal one with my cloned directory.  I also didn't have the option of storing things locally on that device, so alternatives were necessary which continue to work . . . so this implementation will remain.
 # To demonstrate that I learned rather than simply copy/paste/replaced I will explain my understanding of each of the lines
 
 # The urllib module is apparently a standard Python module for interfacing with URLs.  The 'request' component is for reading and opening the contents of those URLs
@@ -34,6 +35,7 @@ Row_Count = 0
 # I was determined to learn how to use dictionaries this time around rather than do some ballistic stuff with multiple list objects
 Candidate_Dict = {}
 
+# Loop over all rows in the csv, create and assign key-value pairs into a dictionary, also count the size of the csv as each line counts as a single vote
 for row in csv_reader:
     if row[2] in Candidate_Dict:
         Candidate_Dict[row[2]] = Candidate_Dict[row[2]] + 1
@@ -41,7 +43,7 @@ for row in csv_reader:
         Candidate_Dict[row[2]] = 1 
     Row_Count = Row_Count + 1
     
-# Similar approach to output as a single string to the file
+# Similar approach to output as with PyBank, that is - use a single string to write to the file
 election_results = (
 "Election Results" + "\n" +
 "-------------------------" + "\n" +
@@ -57,7 +59,8 @@ election_results += (
 "-------------------------" + "\n" +
 "Winner: " + str(Winning_Candidate) + "\n" +
 "-------------------------")
-#output_file_path = output_file_path = os.path.join(script_directory, 'output.txt')script_directory, 'output.txt')
+
+# Working on my personal device again when I wrote this Write section, should work for others when downloading locally.
 with open(os.path.join(SysPath,'PyPoll','Analysis','election_results.txt'),'w') as output_file:
     output_file.write(election_results)
 
