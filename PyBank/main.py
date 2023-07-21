@@ -17,7 +17,7 @@ else:
 # This bit was included to minimize disruption for the non-MacOS users (everyone but me, I guess)
 # I lovehate computers.
 
-csvpath = os.path.join(SysPath, 'PyBank','Resources', 'budget_data.csv')
+csvpath = os.path.join(SysPath, 'PyBank', 'Resources', 'budget_data.csv')
 MonthData = []
 ProfitsData = []
 ChangeData = []
